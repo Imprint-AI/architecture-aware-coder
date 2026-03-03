@@ -1,0 +1,24 @@
+{
+  "name": "@your-org/architecture-aware-coder-skill",
+  "version": "0.1.0",
+  "description": "npx installer for the Manus skill 'architecture-aware-coder.skill'. Replace placeholders before publishing.",
+  "bin": {
+    "skill": "bin/skill.js"
+  },
+  "files": [
+    "bin/",
+    "README.md",
+    "architecture-aware-coder.skill"
+  ],
+  "scripts": {
+    "test": "echo \"No tests defined\" && exit 0"
+  },
+  "author": "YOUR NAME <you@example.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
