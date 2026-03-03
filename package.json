@@ -1,26 +1,30 @@
 {
   "name": "@imprint-ai/architecture-aware-coder",
-  "version": "0.1.0",
-  "description": "A Manus skill that enforces architecture-aware coding via Single Source of Truth (SSoT). Prevents duplicate services, respects layering, and keeps ARCHITECTURE.md in sync.",
-  "bin": {
-    "architecture-aware-coder": "bin/skill.js"
-  },
+  "version": "0.2.0",
+  "description": "AI editor skill that enforces architecture-aware coding via Single Source of Truth (SSoT). Compatible with Claude, Cursor, Roo Code, Windsurf and other AI coding assistants.",
   "files": [
-    "bin/",
-    "README.md",
-    "architecture-aware-coder.skill"
+    "SKILL.md",
+    "scripts/",
+    "templates/",
+    "references/",
+    "README.md"
   ],
   "scripts": {
     "test": "echo \"No tests defined\" && exit 0"
   },
   "keywords": [
-    "manus",
+    "ai",
     "skill",
     "architecture",
-    "ai",
     "coder",
     "ssot",
-    "mermaid"
+    "mermaid",
+    "claude",
+    "cursor",
+    "roo-code",
+    "windsurf",
+    "custom-instructions",
+    "rules"
   ],
   "author": "Imprint-AI <icesilt@outlook.com>",
   "license": "MIT",
@@ -34,8 +38,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "engines": {
-    "node": ">=18"
   }
 }

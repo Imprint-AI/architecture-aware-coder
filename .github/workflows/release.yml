@@ -6,7 +6,7 @@ on:
       - 'v*.*.*'
 
 permissions:
-  contents: write   # needed to upload release assets
+  contents: write   # needed to create release
 
 jobs:
   publish:
@@ -19,11 +19,10 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
-      # Create GitHub Release and upload the .skill file as an asset
+      # Create GitHub Release
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: architecture-aware-coder.skill
           generate_release_notes: true
 
       # Publish the npm package (requires NPM_TOKEN secret)

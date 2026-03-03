@@ -9,9 +9,8 @@ Thank you for your interest in contributing! 🎉
 3. **Make your changes** — follow the code style and keep PRs focused
 4. **Test locally**:
    ```bash
-   node bin/skill.js --help
-   # or unzip and inspect the .skill
-   unzip -l architecture-aware-coder.skill
+   # Run the mapping script on a sample project
+   python3 scripts/map_architecture.py /path/to/project
    ```
 5. **Submit a pull request** with a clear description of what changed and why
 
@@ -25,6 +24,5 @@ Thank you for your interest in contributing! 🎉
 ## Reporting issues
 
 Please use [GitHub Issues](https://github.com/Imprint-AI/architecture-aware-coder/issues) and include:
-- Manus CLI version (`manus --version`)
-- Node.js version (`node --version`)
+- AI editor name and version (e.g., Cursor 0.x, Roo Code 3.x, Claude Projects)
 - Steps to reproduce
