@@ -1,9 +1,9 @@
 {
-  "name": "@your-org/architecture-aware-coder-skill",
+  "name": "@imprint-ai/architecture-aware-coder",
   "version": "0.1.0",
-  "description": "npx installer for the Manus skill 'architecture-aware-coder.skill'. Replace placeholders before publishing.",
+  "description": "A Manus skill that enforces architecture-aware coding via Single Source of Truth (SSoT). Prevents duplicate services, respects layering, and keeps ARCHITECTURE.md in sync.",
   "bin": {
-    "skill": "bin/skill.js"
+    "architecture-aware-coder": "bin/skill.js"
   },
   "files": [
     "bin/",
@@ -13,8 +13,25 @@
   "scripts": {
     "test": "echo \"No tests defined\" && exit 0"
   },
-  "author": "YOUR NAME <you@example.com>",
+  "keywords": [
+    "manus",
+    "skill",
+    "architecture",
+    "ai",
+    "coder",
+    "ssot",
+    "mermaid"
+  ],
+  "author": "Imprint-AI <icesilt@outlook.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Imprint-AI/architecture-aware-coder.git"
+  },
+  "homepage": "https://github.com/Imprint-AI/architecture-aware-coder#readme",
+  "bugs": {
+    "url": "https://github.com/Imprint-AI/architecture-aware-coder/issues"
+  },
   "publishConfig": {
     "access": "public"
   },

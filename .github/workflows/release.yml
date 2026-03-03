@@ -5,16 +5,29 @@ on:
     tags:
       - 'v*.*.*'
 
+permissions:
+  contents: write   # needed to upload release assets
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
-      - run: npm publish --access public
+
+      # Create GitHub Release and upload the .skill file as an asset
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: architecture-aware-coder.skill
+          generate_release_notes: true
+
+      # Publish the npm package (requires NPM_TOKEN secret)
+      - name: Publish to npm
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

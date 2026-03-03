@@ -1,80 +1,132 @@
-# architecture-aware-coder - Manus skill (open-source template)
+# Architecture-Aware Coder — Manus Skill
 
-This repository is a ready-to-publish open-source scaffold for your Manus `.skill` file.
-It includes:
-- the original `architecture-aware-coder.skill` file
-- a small `npx`-compatible CLI (`bin/skill.js`) that downloads the `.skill` from GitHub Releases
-- `package.json` configured for publishing as an npm package (scope + public access)
-- basic docs: README, LICENSE, CONTRIBUTING, SECURITY, CHANGELOG
-- GitHub Actions workflow example for publishing
+[English](#english) | [中文](#中文)
 
-> ⚠️ Before publishing: replace placeholders (YOUR_GITHUB_USERNAME, YOUR_REPO, package name, author, etc.)
+---
 
-## What is a `.skill` file?
+## English
 
-You created this skill with `manus create-skill`. A `.skill` file is a skill package for Manus — it typically contains metadata, prompts/flows, and configuration used by the Manus runtime/CLI to register or import the skill into a Manus instance. The exact contents vary by tool version.
+### What is this?
 
-### Quick preview of the uploaded .skill (first ~20 lines or parsed JSON)
+**Architecture-Aware Coder** is a Manus skill that enforces a "Single Source of Truth" (SSoT) approach to project architecture. It ensures the AI understands the **global system** before writing any code — preventing local optimizations like creating redundant services, violating layering rules, or breaking module boundaries.
+
+### Key Features
+
+- 📐 **Pre-coding architecture discovery** — Scans `ARCHITECTURE.md` or `components.yaml` before touching any file
+- 🔍 **Duplicate detection** — Checks for existing services/modules before creating new ones
+- 🏗️ **Pattern-aware coding** — Respects MVC, Clean Architecture, Hexagonal, Microservices, and N-Tier patterns
+- 📄 **Living documentation sync** — Keeps `ARCHITECTURE.md` updated with YAML facts + Mermaid diagrams after every change
+- 🐍 **Auto-mapping script** — `scripts/map_architecture.py` generates a token-efficient YAML snapshot of any codebase
+
+### Skill Contents (inside `.skill` ZIP)
+
+```
+SKILL.md                          ← skill definition & workflow
+scripts/map_architecture.py       ← codebase scanner (Python)
+templates/ARCHITECTURE.md.template← "Facts + Views" doc template
+references/patterns.md            ← architectural pattern reference
 ```
 
-```
+### The "Facts + Views" Pattern
 
-## Quick user instructions (what the included `npx` CLI does)
+| Section | Format | Audience | Benefit |
+|:--------|:-------|:---------|:--------|
+| **FACTS** | YAML | AI / Tools | Low token cost, high precision, easy to parse |
+| **TOPOLOGY** | Mermaid | Human | Visual intuition, zero-dependency rendering |
+| **HIERARCHY** | MD List | Human | Instant readability in any Markdown viewer |
+| **TRACES** | Trace Log | Both | Explains dynamic scheduling/logic flows |
 
-After you publish this npm package (or upload the `.skill` to GitHub releases and keep the DOWNLOAD_URL in `bin/skill.js` updated), users can run:
+### Core Workflow
+
+1. **Phase 1 — Global Context Discovery** (before coding): Locate `ARCHITECTURE.md`, parse the `FACTS` YAML, run the mapping script if docs are missing, check for duplicate components.
+2. **Phase 2 — Architecturally Consistent Coding**: Respect layering, reuse existing components, minimize coupling.
+3. **Phase 3 — Architectural Synchronization** (after coding): Update YAML facts, sync Mermaid diagrams, record sequence traces.
+
+### Install
+
+#### Option A — `npx` (recommended)
 
 ```bash
-npx @your-org/architecture-aware-coder-skill
-# or if you publish the package under the name "skill" (not recommended unless you own that name):
-npx skill
+npx @imprint-ai/architecture-aware-coder
 ```
 
-The command downloads `architecture-aware-coder.skill` into the current directory and prints the `manus skill import` command.
+This downloads `architecture-aware-coder.skill` into the current directory, then prints the import command.
 
-## How to prepare and publish (maintainer checklist)
+#### Option B — Download directly from GitHub Releases
 
-1. Replace placeholders:
-   - Update `package.json` `name`, `author`, `description`.
-   - Edit `bin/skill.js` DOWNLOAD_URL to your final GitHub Releases download URL:
-     `https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO/releases/latest/download/architecture-aware-coder.skill`
-
-2. Commit and push to GitHub:
 ```bash
-git init
-git add .
-git commit -m "Initial: add skill + npx installer"
-git branch -M main
-git remote add origin https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO.git
-git push -u origin main
+curl -LO https://github.com/Imprint-AI/architecture-aware-coder/releases/latest/download/architecture-aware-coder.skill
 ```
 
-3. Create a Release on GitHub and upload `architecture-aware-coder.skill` as a release asset.
-   - After creating the release, the `DOWNLOAD_URL` above will be valid.
+Then import into Manus:
 
-4. Publish the npm package (if you want `npx` to fetch from npm):
 ```bash
-npm login
-# if using scope, ensure publishConfig.access = "public" or run:
-npm publish --access public
+manus skill import ./architecture-aware-coder.skill
 ```
 
-5. Optionally add a GitHub Actions workflow to auto-publish on tag push (example included in `.github/workflows/release.yml`).
+### Requirements
 
-## Files included
-- `architecture-aware-coder.skill` (original file you uploaded)
-- `bin/skill.js` (the CLI)
-- `package.json`
-- `README.md`
-- `LICENSE`
-- `.gitignore`
-- `CONTRIBUTING.md`
-- `SECURITY.md`
-- `CHANGELOG.md`
-- `.github/workflows/release.yml`
+- Node.js ≥ 18 (for `npx`)
+- Python 3 + `pyyaml` (for `scripts/map_architecture.py`)
+- [Manus](https://manus.im) CLI installed
 
-## Next steps I can help with
-- Replace placeholders automatically and generate a fully tailored `package.json` and `bin/skill.js` with working DOWNLOAD_URL (I can do this if you tell me the GitHub repo/user to use).
-- Create the GitHub Release for you (I cannot interact with GitHub directly — but I can provide the exact commands / API payload).
-- Generate a polished `CONTRIBUTING.md` and CI workflow customized to your repo.
+### License
 
-# architecture-aware-coder
+MIT © [Imprint-AI](https://github.com/Imprint-AI)
+
+---
+
+## 中文
+
+### 这是什么？
+
+**Architecture-Aware Coder** 是一个 Manus skill，它强制执行"单一事实来源"（SSoT）架构方法。它让 AI 在编写任何代码之前先理解**全局系统**，防止出现创建重复服务、违反分层规则或破坏模块边界等局部优化问题。
+
+### 核心功能
+
+- 📐 **编码前架构发现** — 在修改任何文件前先扫描 `ARCHITECTURE.md` 或 `components.yaml`
+- 🔍 **重复检测** — 创建新服务/模块前先检查是否已存在类似组件
+- 🏗️ **模式感知编码** — 遵守 MVC、Clean Architecture、六边形、微服务、N 层等架构模式
+- 📄 **活文档同步** — 每次变更后保持 `ARCHITECTURE.md` 的 YAML 事实 + Mermaid 图表更新
+- 🐍 **自动映射脚本** — `scripts/map_architecture.py` 生成任意代码库的高效 YAML 快照
+
+### Skill 内容（`.skill` 文件内部结构）
+
+```
+SKILL.md                          ← skill 定义与工作流
+scripts/map_architecture.py       ← 代码库扫描器（Python）
+templates/ARCHITECTURE.md.template← "事实 + 视图"文档模板
+references/patterns.md            ← 架构模式参考
+```
+
+### 安装方法
+
+#### 方式 A — `npx`（推荐）
+
+```bash
+npx @imprint-ai/architecture-aware-coder
+```
+
+此命令会将 `architecture-aware-coder.skill` 下载到当前目录，并打印导入命令。
+
+#### 方式 B — 直接从 GitHub Releases 下载
+
+```bash
+curl -LO https://github.com/Imprint-AI/architecture-aware-coder/releases/latest/download/architecture-aware-coder.skill
+```
+
+然后导入到 Manus：
+
+```bash
+manus skill import ./architecture-aware-coder.skill
+```
+
+### 环境要求
+
+- Node.js ≥ 18（使用 `npx`）
+- Python 3 + `pyyaml`（使用 `scripts/map_architecture.py`）
+- [Manus](https://manus.im) CLI 已安装
+
+### 许可证
+
+MIT © [Imprint-AI](https://github.com/Imprint-AI)
